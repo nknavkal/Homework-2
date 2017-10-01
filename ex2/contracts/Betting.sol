@@ -1,8 +1,10 @@
 pragma solidity ^0.4.15;
 
-contract BettingContract {
+contract Betting {
 	/* Standard state variables */
 	address owner;
+
+
 	address public gamblerA;
 	address public gamblerB;
 	address public oracle;
