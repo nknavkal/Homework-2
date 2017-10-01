@@ -2,9 +2,7 @@ pragma solidity ^0.4.15;
 
 contract Betting {
 	/* Standard state variables */
-	address owner;
-
-
+	address public owner;
 	address public gamblerA;
 	address public gamblerB;
 	address public oracle;
@@ -30,12 +28,14 @@ contract Betting {
 
 	/* Uh Oh, what are these? */
 	modifier OwnerOnly()  {
-		if(msg.sender == owner);
-		_;
+		if(msg.sender == owner){
+			_;
+		}
 	}
 	modifier OracleOnly() {
-		if(msg.sender == oracle);
-		_;
+		if(msg.sender == oracle) {
+			_;
+		}
 	}
 
 	/* Constructor function, where owner and outcomes are set */
