@@ -30,11 +30,11 @@ contract Betting {
 
 	/* Uh Oh, what are these? */
 	modifier OwnerOnly()  {
-		require(msg.sender == owner);
+		if(msg.sender == owner);
 		_;
 	}
 	modifier OracleOnly() {
-		require(msg.sender == oracle);
+		if(msg.sender == oracle);
 		_;
 	}
 
