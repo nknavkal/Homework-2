@@ -8,7 +8,6 @@ contract Betting {
 	address public oracle;
 	uint8 public numPlayers;
 	uint[] outcomes;
-	uint true_outcome;
 
 	/* Structs are custom data structures with self-defined parameters */
 	struct Bet {
@@ -34,6 +33,11 @@ contract Betting {
 	}
 	modifier OracleOnly() {
 		if(msg.sender == oracle) {
+			_;
+		}
+	}
+	modifier GamblerOnly() {
+		if(msg.sender == gamblerA || msg.sender == gamblerB) {
 			_;
 		}
 	}
@@ -75,7 +79,7 @@ contract Betting {
 
 	/* The oracle chooses which outcome wins */
 	function makeDecision(uint _outcome) public OracleOnly() {
-		true_outcome = _outcome;
+		//true_outcome = _outcome;
 		Bet memory betA = bets[gamblerA];
 		Bet memory betB = bets[gamblerB];
 		if (betA.outcome == betB.outcome) {
@@ -83,9 +87,9 @@ contract Betting {
 			winnings[gamblerB] = betB.amount;
 		} else {
 			uint _winnings = betA.amount + betB.amount;
-			if (betA.outcome == true_outcome) {
+			if (betA.outcome == _outcome) {
 				winnings[gamblerA] = _winnings;
-			} else if (betB.outcome == true_outcome) {
+			} else if (betB.outcome == _outcome) {
 				winnings[gamblerB] = _winnings;
 			} else {
 				winnings[oracle] = _winnings;
@@ -123,7 +127,6 @@ contract Betting {
 		delete(bets[gamblerB]);
 		delete(winnings[gamblerA]);
 		delete(winnings[gamblerB]);
-		delete(true_outcome);
 		delete(numPlayers);
 		delete(gamblerA);
 		delete(gamblerB);
