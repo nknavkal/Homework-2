@@ -43,7 +43,7 @@ contract Betting {
 	}
 
 	/* Constructor function, where owner and outcomes are set */
-	function BettingContract(uint[] _outcomes) public {
+	function Betting(uint[] _outcomes) public {
 		owner = msg.sender;
 		outcomes = _outcomes;
 	}
